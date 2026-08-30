@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://chst50yg31gjq"]
+
+[ext_resource type="Texture2D" uid="uid://4wkspia3rmj7" path="res://assets/fan.png" id="1_p64dw"]
+[ext_resource type="Texture2D" uid="uid://d356sro8k36kb" path="res://assets/fan-anim-on.png" id="2_h3fxe"]
+[ext_resource type="Script" uid="uid://0llmyitfhp85" path="res://scripts/fan_area.gd" id="2_ib1wi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jiij5"]
+size = Vector2(22, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05mpp"]
+atlas = ExtResource("2_h3fxe")
+region = Rect2(0, 0, 24, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_01qld"]
+atlas = ExtResource("2_h3fxe")
+region = Rect2(24, 0, 24, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wrgw"]
+atlas = ExtResource("2_h3fxe")
+region = Rect2(48, 0, 24, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b17ye"]
+atlas = ExtResource("2_h3fxe")
+region = Rect2(72, 0, 24, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtp2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p64dw")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05mpp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_01qld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wrgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b17ye")
+}],
+"loop": 1,
+"name": &"on",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtp2u"]
+size = Vector2(20, 123)
+
+[node name="Fan" type="StaticBody2D" unique_id=748435900]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2136568133]
+shape = SubResource("RectangleShape2D_jiij5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1673381999]
+sprite_frames = SubResource("SpriteFrames_mtp2u")
+animation = &"on"
+autoplay = "on"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2051262362]
+collision_mask = 3
+script = ExtResource("2_ib1wi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=245478805]
+position = Vector2(0, -66.5)
+shape = SubResource("RectangleShape2D_mtp2u")
+
+[node name="WindParticles" type="CPUParticles2D" parent="." unique_id=201754978]
+position = Vector2(0, -5)
+rotation = -3.1415927
+lifetime = 0.5
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(10, 1)
+gravity = Vector2(0, -980)

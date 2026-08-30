@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://bd48ee15oofxi"]
+
+[ext_resource type="Script" uid="uid://d0hyh2hdegftv" path="res://scripts/saw_pendulum.gd" id="1_tjg15"]
+[ext_resource type="Texture2D" uid="uid://d15ydpbg26al5" path="res://assets/spiked-chain.png" id="2_8egs4"]
+[ext_resource type="Script" uid="uid://cyv2prjuq64gb" path="res://scripts/saw.gd" id="3_slcax"]
+[ext_resource type="Texture2D" uid="uid://do6fejhlre731" path="res://assets/spiked-ball.png" id="4_slcax"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jiij5"]
+size = Vector2(26, 26)
+
+[node name="SpikedBall" type="Node2D" unique_id=770951061]
+script = ExtResource("1_tjg15")
+
+[node name="Chains" type="Node2D" parent="." unique_id=1513714861]
+
+[node name="Sprite2D" type="Sprite2D" parent="Chains" unique_id=895268608]
+texture = ExtResource("2_8egs4")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Chains" unique_id=270934998]
+position = Vector2(0, 27)
+texture = ExtResource("2_8egs4")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Chains" unique_id=572576402]
+position = Vector2(0, 18)
+texture = ExtResource("2_8egs4")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Chains" unique_id=427366792]
+position = Vector2(0, 9)
+texture = ExtResource("2_8egs4")
+
+[node name="Ball" type="Area2D" parent="." unique_id=2048090937]
+collision_mask = 2
+script = ExtResource("3_slcax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=863561662]
+position = Vector2(0, 47)
+shape = SubResource("RectangleShape2D_jiij5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball" unique_id=348504477]
+position = Vector2(0, 47)
+texture = ExtResource("4_slcax")

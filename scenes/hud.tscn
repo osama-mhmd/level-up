@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cjhjjp1qsju56"]
+
+[ext_resource type="Script" uid="uid://ba7apscl4jmoa" path="res://scripts/hud.gd" id="1_ahhtf"]
+[ext_resource type="FontFile" uid="uid://ds0ju0vt6n4n0" path="res://assets/font.ttf" id="2_oo0fn"]
+
+[node name="Hud" type="CanvasLayer" unique_id=1823371471]
+script = ExtResource("1_ahhtf")
+
+[node name="Label" type="Label" parent="." unique_id=733454033]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 57.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("2_oo0fn")
+theme_override_font_sizes/font_size = 16
+text = "100 XP"

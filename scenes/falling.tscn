@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://btr4n25x46dcl"]
+
+[ext_resource type="Texture2D" uid="uid://kebjddd1y05h" path="res://assets/falling-off.png" id="1_5vfpo"]
+[ext_resource type="Script" uid="uid://hcfssthq2knp" path="res://scripts/falling.gd" id="1_8vbsj"]
+[ext_resource type="Texture2D" uid="uid://6554retut321" path="res://assets/falling-on.png" id="2_8vbsj"]
+[ext_resource type="Texture2D" uid="uid://68ox5dqppk77" path="res://assets/white-particle.png" id="4_5m1er"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp86k"]
+size = Vector2(32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m1er"]
+atlas = ExtResource("2_8vbsj")
+region = Rect2(0, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itulq"]
+atlas = ExtResource("2_8vbsj")
+region = Rect2(32, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r02th"]
+atlas = ExtResource("2_8vbsj")
+region = Rect2(64, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bufol"]
+atlas = ExtResource("2_8vbsj")
+region = Rect2(96, 0, 32, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mtp2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_5vfpo")
+}],
+"loop": 1,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m1er")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itulq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r02th")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bufol")
+}],
+"loop": 1,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jiij5"]
+size = Vector2(32, 7)
+
+[node name="FallingPlatform" type="AnimatableBody2D" unique_id=620009445]
+collision_mask = 3
+script = ExtResource("1_8vbsj")
+
+[node name="PhysicsShape" type="CollisionShape2D" parent="." unique_id=96593644]
+shape = SubResource("RectangleShape2D_lp86k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1415649979]
+sprite_frames = SubResource("SpriteFrames_mtp2u")
+animation = &"on"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=888116360]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=988182692]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_jiij5")
+
+[node name="WindParticles" type="CPUParticles2D" parent="." unique_id=827200397]
+position = Vector2(0, 5)
+amount = 15
+texture = ExtResource("4_5m1er")
+lifetime = 0.5
+speed_scale = 1.75
+randomness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(12, 1)
+scale_amount_min = 0.5

@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://33dpl2xp8seg"]
+
+[ext_resource type="Script" uid="uid://b5uvcdhhwm6ec" path="res://scripts/levels_menu.gd" id="1_7rorl"]
+[ext_resource type="Texture2D" uid="uid://dld0r35t6an0a" path="res://assets/Brown.png" id="1_r3otx"]
+
+[node name="LevelsMenu" type="Control" unique_id=1319204052]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7rorl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=641742703]
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D" unique_id=593551459]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.5
+offset_top = -72.0
+offset_right = 91.5
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="GridContainer" type="GridContainer" parent="Camera2D/MarginContainer" unique_id=1854804364]
+layout_mode = 2
+columns = 10
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=897338042]
+layer = -1
+follow_viewport_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=644264051]
+offset_left = -629.0
+offset_top = -288.0
+offset_right = 801.0
+offset_bottom = 477.0
+texture = ExtResource("1_r3otx")
+expand_mode = 1
+stretch_mode = 1
