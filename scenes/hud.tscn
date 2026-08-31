@@ -12,5 +12,5 @@ offset_top = 5.0
 offset_right = 57.0
 offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("2_oo0fn")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 22
 text = "100 XP"

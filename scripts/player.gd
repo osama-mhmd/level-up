@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var dust_emitter: CPUParticles2D = $DustEmitter
+#@onready var dust_emitter: CPUParticles2D = $DustEmitter
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -250.0
