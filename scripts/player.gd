@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var dust_emitter: CPUParticles2D = $DustEmitter
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -250.0
@@ -38,10 +39,12 @@ func _physics_process(delta):
 		jumps_left = max_jumps # Reset jump count on reaching ground
 		
 		if velocity.x != 0:
-			animated_sprite.play("run")
+			animated_sprite.play("run") 
 		else:
 			animated_sprite.play("idle")
+			#dust_emitter.emitting = false
 			
+	_on_animated_sprite_2d_frame_changed()
 	if Input.is_action_just_pressed("ui_accept"):
 		if is_on_floor() or jumps_left > 0:
 			velocity.y = JUMP_VELOCITY
@@ -87,3 +90,8 @@ func play_bounce():
 
 func push(vel: Vector2):
 	velocity = vel
+	
+func _on_animated_sprite_2d_frame_changed() -> void:
+	pass
+	#if animated_sprite.animation == "run" and (animated_sprite.frame == 1 or animated_sprite.frame == 4):
+		#dust_emitter.restart()
