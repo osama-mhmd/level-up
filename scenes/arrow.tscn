@@ -124,6 +124,7 @@ script = ExtResource("1_q8ifc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1699211880]
 sprite_frames = SubResource("SpriteFrames_mtp2u")
+animation = &"hit"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=868302559]
