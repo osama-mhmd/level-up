@@ -3,12 +3,13 @@ extends AnimatableBody2D
 enum TrapMode { CLOCKWISE, HORIZONTAL, VERTICAL, ANTI_CLOCKWISE }
 
 @export var current_mode: TrapMode = TrapMode.HORIZONTAL
-@export var move_speed: float = 200.0
+@export var move_speed: float = 15
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var move_dir: Vector2 = Vector2.ZERO
 var is_processing_hit: bool = false
+var motion: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	sprite.play("idle")
@@ -18,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	if is_processing_hit:
 		return
 
-	var motion = move_dir * move_speed * delta
+	motion += move_dir * move_speed * delta
 	var collision = move_and_collide(motion, true)
 
 	if collision:
@@ -34,15 +35,15 @@ func _physics_process(delta: float) -> void:
 			return
 
 		var collider = collision.get_collider()
-
+		
 		if collider is CharacterBody2D:
-			_handle_player_collision(collider, motion)
+			_handle_player_collision(collider)
 		else:
 			_handle_wall_collision(collision)
 	else:
 		global_position += motion
 
-func _handle_player_collision(player: CharacterBody2D, motion: Vector2) -> void:
+func _handle_player_collision(player: CharacterBody2D) -> void:
 	# Test if player has a wall behind them in the direction of motion
 	var player_wall_test = player.move_and_collide(motion, true)
 
@@ -59,6 +60,7 @@ func _handle_wall_collision(collision: KinematicCollision2D) -> void:
 	is_processing_hit = true
 	
 	global_position += (collision.get_travel() * 3) / 4
+	motion = Vector2.ZERO # Reset speed
 	
 	var normal = collision.get_normal()
 

@@ -7,6 +7,7 @@ const SPEED = 150.0
 const JUMP_VELOCITY = -250.0
 
 var is_disappearing: bool = false
+var ext_force: Vector2 = Vector2.ZERO
 
 # Fetch default gravity setting from Project Settings
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -16,6 +17,9 @@ var jumps_left: int = 2
 var is_wall_jumping: bool = false
 
 func _physics_process(delta):
+	var on_wall: bool = is_on_wall()
+	var on_floor: bool = is_on_floor()
+	
 	if is_disappearing:
 		return
 		
@@ -26,7 +30,7 @@ func _physics_process(delta):
 		animated_sprite.flip_h = true
 
 	# Play animations based on movement state
-	if not is_on_floor():
+	if not on_floor:
 		velocity.y += gravity * delta
 		if velocity.y < 0:
 			if jumps_left == 1:
@@ -46,16 +50,17 @@ func _physics_process(delta):
 			
 	_on_animated_sprite_2d_frame_changed()
 	if Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor() or jumps_left > 0:
+		if on_floor or jumps_left > 0:
 			velocity.y = JUMP_VELOCITY
 			jumps_left -= 1
-			if is_on_wall():
+			if on_wall and not on_floor:
 				velocity.x = get_wall_normal().x * 100
 				is_wall_jumping = true
 				get_tree().create_timer(0.15).timeout.connect(func(): is_wall_jumping = false)
 			
 	if is_on_wall() and not is_on_floor():
 		animated_sprite.play("wall")
+		jumps_left = max_jumps
 		if velocity.y >0: velocity.y = min(velocity.y, 60)
 		
 	var direction = Input.get_axis("ui_left", "ui_right")
@@ -66,7 +71,13 @@ func _physics_process(delta):
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+	velocity += ext_force
+	ext_force = Vector2.ZERO
+	
 	move_and_slide()
+	
+func apply_force(vec: Vector2) -> void:
+	ext_force = vec
 
 func play_disappear():
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -85,11 +96,8 @@ func die():
 	if is_inside_tree(): 
 		get_tree().reload_current_scene()
 
-func play_bounce():
-	velocity.y = JUMP_VELOCITY * 2
-
-func push(vel: Vector2):
-	velocity = vel
+func bounce():
+	velocity.y = JUMP_VELOCITY * 1.25
 	
 func _on_animated_sprite_2d_frame_changed() -> void:
 	pass

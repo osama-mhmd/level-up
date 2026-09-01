@@ -6,6 +6,7 @@ extends Area2D
 @onready var label: Label = $KeyBinding/Label
 
 @export var cooldown: int = 3
+@export var target_node: InteractiveElement
 
 var is_player_in: bool = false
 var pressed: bool = false
@@ -36,6 +37,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if not pressed and event.is_action_pressed("ui_interact") and is_player_in:
 		sprite.play("default")
+		
+		# Call _action that perform trigger on the target node
 		_action()
 		
 		# Hide prompt immediately upon activation
@@ -47,7 +50,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		pressed = true
 
 func _action() -> void:
-	print("Button pressed")
+	if target_node and target_node.has_method("trigger"):
+		target_node.trigger()
 
 func _on_cooldown_finished() -> void:
 	sprite.play("reverse")

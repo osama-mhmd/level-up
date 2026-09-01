@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://chst50yg31gjq"]
 
+[ext_resource type="Script" uid="uid://g6278eoqjmrg" path="res://scripts/fan.gd" id="1_05mpp"]
 [ext_resource type="Texture2D" uid="uid://4wkspia3rmj7" path="res://assets/fan.png" id="1_p64dw"]
 [ext_resource type="Texture2D" uid="uid://d356sro8k36kb" path="res://assets/fan-anim-on.png" id="2_h3fxe"]
-[ext_resource type="Script" uid="uid://0llmyitfhp85" path="res://scripts/fan_area.gd" id="2_ib1wi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jiij5"]
 size = Vector2(22, 8)
@@ -55,6 +55,7 @@ animations = [{
 size = Vector2(20, 123)
 
 [node name="Fan" type="StaticBody2D" unique_id=748435900]
+script = ExtResource("1_05mpp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2136568133]
 shape = SubResource("RectangleShape2D_jiij5")
@@ -66,7 +67,6 @@ autoplay = "on"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2051262362]
 collision_mask = 3
-script = ExtResource("2_ib1wi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=245478805]
 position = Vector2(0, -66.5)
