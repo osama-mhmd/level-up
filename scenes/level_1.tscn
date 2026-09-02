@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://ennwkw7tfukn" path="res://scenes/trophy.tscn" id="2_rus8k"]
 [ext_resource type="PackedScene" uid="uid://cilqa341k04dv" path="res://scenes/level_2.tscn" id="3_5xbjy"]
 [ext_resource type="PackedScene" uid="uid://dhf2h1v3517wp" path="res://scenes/fruit.tscn" id="6_fcfvj"]
+[ext_resource type="Script" uid="uid://nhtyxs8mm2n" path="res://scripts/mirror.gd" id="8_2y5yt"]
+[ext_resource type="Texture2D" uid="uid://dwtnwg2y3vimi" path="res://assets/Mirror-2.png" id="9_e3sih"]
+[ext_resource type="Texture2D" uid="uid://2n3yk2m3bn" path="res://assets/Mirror-3.png" id="10_2y5yt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hbghi"]
 texture = ExtResource("1_014kd")
@@ -320,6 +323,11 @@ texture = ExtResource("1_014kd")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_hbghi")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_78ekx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtp2u"]
+size = Vector2(143, 95)
+
 [node name="Level1" type="Node2D" unique_id=137698816]
 
 [node name="Arrow" parent="." unique_id=936067728 instance=ExtResource("1_pa8r4")]
@@ -333,17 +341,14 @@ tile_set = SubResource("TileSet_jiij5")
 position = Vector2(529, 106)
 next_level = ExtResource("3_5xbjy")
 
-[node name="CharacterBody2D" parent="." unique_id=838265281 instance=ExtResource("2_bswci")]
-position = Vector2(233, 249)
-
 [node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1909902345]
 layer = -1
 follow_viewport_enabled = true
 
 [node name="TextureRect" type="TextureRect" parent="BackgroundLayer" unique_id=75319449]
-offset_left = 78.0
-offset_top = 53.0
-offset_right = 602.0
+offset_left = 84.0
+offset_top = 52.999996
+offset_right = 608.0
 offset_bottom = 467.0
 scale = Vector2(1.2400006, 1.2400006)
 texture = ExtResource("2_4nkto")
@@ -367,3 +372,29 @@ position = Vector2(365, 169)
 
 [node name="Fruit6" parent="." unique_id=1178271962 instance=ExtResource("6_fcfvj")]
 position = Vector2(401, 169)
+
+[node name="Mirror" type="Node2D" parent="." unique_id=1805958465]
+position = Vector2(280, 240)
+script = ExtResource("8_2y5yt")
+
+[node name="MirrorFrame" type="Sprite2D" parent="Mirror" unique_id=265426131]
+clip_children = 2
+texture = ExtResource("9_e3sih")
+
+[node name="GlassMask" type="Sprite2D" parent="Mirror" unique_id=409194318]
+clip_children = 2
+texture = ExtResource("10_2y5yt")
+
+[node name="ReflectionSprite" type="AnimatedSprite2D" parent="Mirror/GlassMask" unique_id=815310251]
+sprite_frames = SubResource("SpriteFrames_78ekx")
+
+[node name="ProximityArea" type="Area2D" parent="Mirror" unique_id=317993340]
+position = Vector2(-48, 46)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mirror/ProximityArea" unique_id=1817135371]
+position = Vector2(8.5, -45.5)
+shape = SubResource("RectangleShape2D_mtp2u")
+
+[node name="CharacterBody2D" parent="." unique_id=838265281 instance=ExtResource("2_bswci")]
+position = Vector2(154, 267)
